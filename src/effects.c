@@ -1,34 +1,16 @@
 /*
-    KOF2003 - A Engine Fight Game
-
-    Maintainers:
-    Copyright (c) 2003 by Claudemir Jr <claudemir.daluz@virtuallink.com.br>
-    Copyright (c) 2003 by Rick Leite   <ric@asbyte.com.br>
-
-    Based on KOF91 code ( http://kof91.com )
-    Copyright (c) 2003 by Nicolas Sevez , aka Moah (moah@kof91.com)
-
-    Linux Ported Copyright (c) Duncan M. Vicar <duncan@kde.org>
-
-    Contributors:
-    TDAM code Copyright (c) 2003 by Ivan Toledo <birdie@alumnos.utem.cl>
-    
-    *************************************************************************
-    *                                                                       *
-    * This program is free software; you can redistribute it and/or modify  *
-    * it under the terms of the GNU General Public License as published by  *
-    * the Free Software Foundation; either version 2 of the License, or     *
-    * (at your option) any later version.                                   *
-    * Please for more information see license.txt                           *
-    *                                                                       *
-    *************************************************************************
-*/
+    effects.c
+ //template//
+ */
 
 #include "config.h"
 #include "macros.h"
 #include "global.h"
 #include "effects.h"
 
+/** \file effects.c
+ * \brief Old functions to fade in and out
+ */
 /*
  * kof_fade_in(BITMAP *bmp_orig, int speed)
  * 
@@ -95,39 +77,3 @@ void kof_fade_out(int speed)
 }
 
 
-
-/*
-int main(void)
-{
-    BITMAP *tmp;
-
-    allegro_init();
-    install_keyboard();
-
-    set_color_depth(32);
-    set_gfx_mode(GFX_AUTODETECT_WINDOWED, 640, 480, 0, 0);
-
-    // set up a temp bitmap to so we can fade back later 
-    if (!(tmp = create_bitmap(SCREEN_W, SCREEN_H))) exit(1);
-    
-    // create a test screen 
-    rectfill(screen, 0,0, SCREEN_W,SCREEN_H, makecol(255,255,255));
-    circlefill(screen, 75,75, 25, makecol(255,0,0));
-
-    // save this test screen so we can fade_in to it later
-    blit(screen, tmp, 0,0, 0,0, SCREEN_W, SCREEN_H);
-    readkey();
-    
-    highcolor_fade_out(16);
-    readkey();
-
-    highcolor_fade_in(tmp, 16);
-    readkey();
-
-    destroy_bitmap(tmp);
-    return 0;
-}
-END_OF_MAIN()
-*/
-
-// EOF

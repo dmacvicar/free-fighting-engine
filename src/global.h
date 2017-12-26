@@ -1,142 +1,97 @@
-/*
-    KOF2003 - A Engine Fight Game
-
-    Maintainers:
-    Copyright (c) 2003 by Claudemir Jr <claudemir.daluz@virtuallink.com.br>
-    Copyright (c) 2003 by Rick Leite   <ric@asbyte.com.br>
-
-    Based on KOF91 code ( http://kof91.com )
-    Copyright (c) 2003 by Nicolas Sevez , aka Moah (moah@kof91.com)
-
-    Linux Ported Copyright (c) Duncan M. Vicar <duncan@kde.org>
-
-    Contributors:
-    TDAM code Copyright (c) 2003 by Ivan Toledo <birdie@alumnos.utem.cl>
-    
-    *************************************************************************
-    *                                                                       *
-    * This program is free software; you can redistribute it and/or modify  *
-    * it under the terms of the GNU General Public License as published by  *
-    * the Free Software Foundation; either version 2 of the License, or     *
-    * (at your option) any later version.                                   *
-    * Please for more information see license.txt                           *
-    *                                                                       *
-    *************************************************************************
-*/
-#ifndef _GLOBAL_H
-#define _GLOBAL_H
+#ifndef MAIN_H
+#ifndef GLOBAL_H
+#define GLOBAL_H
 
 #include "config.h"
 #include <allegro.h>
-
-#if GAME_DEBUG > 0
+#include "almp3.h"
 #include "time.h"
-#endif
+#include "global_add.h"
+#include "loader.h"
+
+/** \file global.h
+ * \brief global vars and struct definitions used by old KOF 91
+ */
+extern struct
+{
+  struct
+  {
+    int port;
+    int volume;
+    char *name;
+  }
+    output;
+}
+Options;
+
+/******************** mp3 is back ******************/
+typedef struct {
+  PACKFILE *f;
+  ALMP3_MP3STREAM *s;
+} MP3FILE;
+
+extern MP3FILE *mp3 ;
+extern int mp3status;
+extern int mp3_loop;
+/*****************************************/
+
+/******************* Necessary for the font loader *********/
+extern FNTInfo* fontInfo;
+extern PALETTE* pal[16];
+/******************************************************/
 
 // global variables
 
-struct PLAYER_BMP_STRUCT
-{
-	BITMAP *Static[ 999 ];
-	BITMAP *Walk[ 999 ];
-	BITMAP *Single[ 999 ];
-	BITMAP *Punch[ 999 ];
-	BITMAP *WPunch[ 999 ];
-	BITMAP *Kick[ 999 ];
-	BITMAP *WKick[ 999 ];
-	BITMAP *Jump[ 999 ];
-	BITMAP *KO[ 999 ];
-	BITMAP *Hurt[ 999 ];
-	BITMAP *GHurt[ 999 ];
-	BITMAP *AKick[ 999 ];
-	BITMAP *APunch[ 999 ];
-	BITMAP *GKick[ 999 ];
-	BITMAP *GPunch[ 999 ];
-	BITMAP *FireB[ 999 ];
-	BITMAP *FBall[ 999 ];
-	BITMAP *Rush[ 999 ];
-	BITMAP *SMove[ 999 ];
-	BITMAP *FireBX[ 999 ];
-	BITMAP *FBallX[ 999 ];
-	BITMAP *RushX[ 999 ];
-	BITMAP *SMoveX[ 999 ];
-	BITMAP *NMoves[ 999 ][ 999 ];
-};
-struct MOVE
-{
-	int w;
-	char nbf, spd;
-	int defx , defy;
-};
-struct AMOVE
-{
-	int w;
-	char nbf, spd;
-	int defx , defy;
-	char hit, dmg;
-	int offx , offy;
-};
-struct SMOVE
-{
-	int w;
-	char nbf, spd;
-	int defx , defy;
-	char hit, dmg;
-	int offx , offy;
-	char flg, rot, pix, end, succ, spec, sflg;
-	char exec[255] ;
-	char seq[ 40 ];
-	char nb;
-};
-struct PLAYER_DATA_STRUCT
-{
-	char flag;
-	int height, width;
-	int limoffx , limoffy;
-	int limdefx , limdefy;
-	int wimpact_ct;
-	int simpact_ct;
-	int bimpact_ct;
-	struct MOVE statik;
-	struct MOVE walk;
-	struct MOVE crouch;
-	struct MOVE hurt;
-	struct MOVE ghurt;
-	struct MOVE jump;
-	struct MOVE intro;
-	struct MOVE outwin;
-	struct MOVE ko;
-	struct AMOVE wpunch;
-	struct AMOVE spunch;
-	struct AMOVE apunch;
-	struct AMOVE gpunch;
-	struct AMOVE wkick;
-	struct AMOVE skick;
-	struct AMOVE gkick;
-	struct AMOVE akick;
-	struct SMOVE fireb;
-	struct SMOVE fball;
-	struct SMOVE rush;
-	struct SMOVE smove;
-	struct SMOVE firebx;
-	struct SMOVE fballx;
-	struct SMOVE rushx;
-	struct SMOVE smovex;
-};
-
-struct PLAYER_BMP_STRUCT Player1;
-struct PLAYER_BMP_STRUCT Player2;
-struct PLAYER_DATA_STRUCT p1;
-struct PLAYER_DATA_STRUCT p2;
-/******************************************/
-
 extern DATAFILE *creditflic ;
-
 extern DATAFILE *fonts_dat ;
-
 extern FONT *small_font ;
 
 extern MIDI *music ;
+
+extern SAMPLE *rd1 ;
+extern SAMPLE *rd2 ;
+extern SAMPLE *rd3 ;
+
+extern SAMPLE *fight ;
+
+extern SAMPLE *hit_alwa ;
+extern SAMPLE *hit_good ;
+
+extern SAMPLE *wp_alwa ;
+extern SAMPLE *wk_alwa ;
+extern SAMPLE *sp_alwa ;
+extern SAMPLE *sk_alwa ;
+
+extern SAMPLE *hit1 ;
+extern SAMPLE *hit2 ;
+
+extern SAMPLE *block_snd ;
+
+extern SAMPLE *hadoken1 ;
+extern SAMPLE *hadoken2 ;
+extern SAMPLE *copter1 ;
+extern SAMPLE *copter2 ;
+extern SAMPLE *dragon1 ;
+extern SAMPLE *dragon2 ;
+
+extern SAMPLE *hadokenx1 ;
+extern SAMPLE *hadokenx2 ;
+extern SAMPLE *copterx1 ;
+extern SAMPLE *copterx2 ;
+extern SAMPLE *dragonx1 ;
+extern SAMPLE *dragonx2 ;
+
+extern SAMPLE *done ;
+extern SAMPLE *bing ;
+extern SAMPLE *buzz ;
+
+extern SAMPLE *ko_snd ;
+
+extern SAMPLE *prfct_snd ;
+extern SAMPLE *to_snd ;
+
+extern SAMPLE *argh_snd ;
+extern SAMPLE *female_snd ;
 
 extern BITMAP *virtscreen ;             /* virtual screen                   */
 
@@ -207,14 +162,11 @@ extern BITMAP *Frgd ;
 extern BITMAP *tface1;
 extern BITMAP *tface2;
 
-extern BITMAP *tface_border1;
-extern BITMAP *tface_border2;
-
-
 extern char buffer[100];
 extern char file2[200];
 
 extern int opt; /* para as novas opções, intro, display, winner e etc. */
+extern int t_clock;
 
 /* extern BITMAP *Blood ; */
 
@@ -227,6 +179,122 @@ BITMAP *B_prfct;
 #endif
 
 
+/******************************************/
+struct PLAYER_BMP_STRUCT
+{
+	BITMAP *Static[ 999 ];
+	BITMAP *Walk[ 999 ];
+	BITMAP *Single[ 999 ];
+	BITMAP *Punch[ 999 ];
+	BITMAP *WPunch[ 999 ];
+	BITMAP *Kick[ 999 ];
+	BITMAP *WKick[ 999 ];
+	BITMAP *Jump[ 999 ];
+	BITMAP *KO[ 999 ];
+	BITMAP *Hurt[ 999 ];
+	BITMAP *GHurt[ 999 ];
+	BITMAP *AKick[ 999 ];
+	BITMAP *APunch[ 999 ];
+	BITMAP *GKick[ 999 ];
+	BITMAP *GPunch[ 999 ];
+	BITMAP *FireB[ 999 ];
+	BITMAP *FBall[ 999 ];
+	BITMAP *Rush[ 999 ];
+	BITMAP *SMove[ 999 ];
+	BITMAP *FireBX[ 999 ];
+	BITMAP *FBallX[ 999 ];
+	BITMAP *RushX[ 999 ];
+	BITMAP *SMoveX[ 999 ];
+	BITMAP *NMoves[ 999 ][ 999 ];
+};
+
+
+struct MOVE
+{
+	int w ;
+	char nbf, spd ;
+	int defx , defy ;
+};
+
+struct AMOVE
+{
+	int w ;
+	char nbf, spd ;
+	int defx , defy ;
+
+	char hit, dmg ;
+	int offx , offy ;
+};
+
+struct SMOVE
+{
+	int w ;
+	char nbf, spd ;
+	int defx , defy ;
+
+	char hit, dmg ;
+	int offx , offy ;
+
+	char flg, rot, pix, end, succ, spec, sflg ;
+	char exec[255] ;
+	char seq[ 40 ] ;
+	char nb ;
+
+};
+
+struct PLAYER_DATA_STRUCT
+{
+	char flag ;
+	int height, width ;
+
+	int limoffx , limoffy ;
+	int limdefx , limdefy ;
+
+	int wimpact_ct ;
+	int simpact_ct ;
+	int bimpact_ct ;
+
+	struct MOVE statik ;
+	struct MOVE walk ;
+	struct MOVE crouch ;
+	struct MOVE hurt ;
+	struct MOVE ghurt ;
+	struct MOVE jump ;
+	struct MOVE intro ;
+	struct MOVE outwin ;
+	struct MOVE ko ;
+
+	struct AMOVE wpunch ;
+	struct AMOVE spunch ;
+	struct AMOVE apunch ;
+	struct AMOVE gpunch ;
+	struct AMOVE wkick ;
+	struct AMOVE skick ;
+	struct AMOVE gkick ;
+	struct AMOVE akick ;
+
+	struct SMOVE fireb ;
+	struct SMOVE fball ;
+	struct SMOVE rush ;
+	struct SMOVE smove ;
+
+	struct SMOVE firebx ;
+	struct SMOVE fballx ;
+	struct SMOVE rushx ;
+	struct SMOVE smovex ;
+
+};
+
+extern struct PLAYER_BMP_STRUCT Player1 ;
+extern struct PLAYER_BMP_STRUCT Player2 ;
+
+extern struct PLAYER_DATA_STRUCT p1 ;
+extern struct PLAYER_DATA_STRUCT p2 ;
+
+
+
+
+/******************************************/
 
 extern char animated ;
 extern char foreground ;
@@ -239,24 +307,19 @@ extern int zoomsup ;
 extern int zoomwidth;
 
 extern unsigned char j ;
-
-extern char gmode , diff ;
+extern int gmode;
+extern char diff ;
 
 
 // story variables
-
 extern char story ;
-
 extern int sel1, sel2 ;
-
 extern char debug ;
 
-
 // string and key variables
-
-char charname [ 1000 ][ 30 ] ;
-char bkgdname [ 200 ][ 30 ] ;
-char flcname [ 100 ][ 30 ] ;
+extern char charname [ 1000 ][ 30 ] ;
+extern char bkgdname [ 200 ][ 30 ] ;
+extern char flcname [ 100 ][ 30 ] ;
 
 extern int nbchar ;
 extern int nbbkgd ;
@@ -323,19 +386,25 @@ extern int ai_static ;
 
 // misc
 
-extern int mp3 ;
+extern int mp3_on ;
 
 extern int intro_delay ;
 
-extern int midi_vol ;
+extern int pan;
+extern int pitch;
+
+extern int snd_vol , midi_vol ;
 
 extern int start_x , start_y ;
 
-extern char gfmode ;
+extern int gfmode;
+extern int stretch;
 
-extern int screen_height ;
-extern int screen_width ;
+extern int screen_height;
+extern int screen_width;
+extern int screen_depth;
 
+extern int full_screen;
 extern char autorise ;
 
 /* Displays, lifebars, clock, powerbars, victory flas etc...*/
@@ -348,16 +417,15 @@ extern int clone;
 
 // END OF GLOBAL DEFINITIONS
 
-
 extern char c ;
-extern int cx, cy;                         // Current X and Y position in the bkgd + misc
-extern int x, y;                           // Used in for loops  + misc
+extern int cx, cy;                      // Current X and Y position in the bkgd + misc
+extern int x, y;                        // Used in for loops  + misc
 extern int fx, fy;
 extern int ok ;                         // Loop until ok==0
 extern int s ;                          // Scroll speed (2 pixels per frame)
 extern int misc ;
 //long t1, t2,
-extern long n;								// For calculating FPS
+extern long n;			      // For calculating FPS
 
 extern int flag ;                     // sprite cycling flags
 extern int flag2 ;
@@ -402,7 +470,7 @@ extern int sel_bkgd ;
 extern int text_color ;
 
 extern int deb ;
-extern char fight_round ;
+// extern char round ;
 
 extern int actual ;			// actual sprite status
 extern int actual2 ;
@@ -476,22 +544,9 @@ extern char open3[ 40 ] ;
 extern char open4[ 40 ] ;
 extern char open5[ 40 ] ;
 extern char title[ 20 ] ;
-extern char say1[500] ;
-extern char say2[500] ;
-
-
-#if SCREENSHOT > 0
-extern void screenshot( void ) ;
-#endif
-
-extern void text_shadow( BITMAP *outbm, FONT *font, char *text, int x, int y, int color );
-
-extern void text_centre_shadow( BITMAP *outbm, FONT *font, char *text, int x, int y, int color );
 
 //extern char max_nbf1, max_nbf2;
 char inverted ;
-
-
 
 #if GAME_DEBUG > 0
 extern void __tron__( char *log_mess, char *n_file , int n_line );
@@ -500,6 +555,5 @@ extern void __tron__( char *log_mess, char *n_file , int n_line );
 extern char log_mess[ 80 ];
 extern void __error__( char *log_mess, char *n_file , int n_line );
 
-#endif
-
-// EOF
+#endif /* GLOBAL_H */
+#endif // MAIN_H

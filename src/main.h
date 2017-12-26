@@ -1,56 +1,94 @@
 /*
-    KOF2003 - A Engine Fight Game
-
-    Maintainers:
-    Copyright (c) 2003 by Claudemir Jr <claudemir.daluz@virtuallink.com.br>
-    Copyright (c) 2003 by Rick Leite   <ric@asbyte.com.br>
-
-    Based on KOF91 code ( http://kof91.com )
-    Copyright (c) 2003 by Nicolas Sevez , aka Moah (moah@kof91.com)
-
-    Linux Ported Copyright (c) Duncan M. Vicar <duncan@kde.org>
-
-    Contributors:
-    TDAM code Copyright (c) 2003 by Ivan Toledo <birdie@alumnos.utem.cl>
-    
-    *************************************************************************
-    *                                                                       *
-    * This program is free software; you can redistribute it and/or modify  *
-    * it under the terms of the GNU General Public License as published by  *
-    * the Free Software Foundation; either version 2 of the License, or     *
-    * (at your option) any later version.                                   *
-    * Please for more information see license.txt                           *
-    *                                                                       *
-    *************************************************************************
+    main.h - Main code
+    //template//
 */
-#ifndef _MAIN_H
-#define _MAIN_H
+#ifndef MAIN_H
+#define MAIN_H
 
 #include "config.h"
 #include <string.h>
 #include "allegro.h"
 #include "macros.h"
 #include "loads.h"
+#include "almp3.h"
+#include "loader.h"
 
+/** \file main.h
+ * \brief Global vars from old KOF 91 versions (but still actual)
+ */
 struct
 {
-	struct
-	{
-		int port;
-		int volume;
-		char *name;
-	}
-	output;
+  struct
+  {
+    int port;
+    int volume;
+    char *name;
+  }
+    output;
 }
 Options;
 
+/************************** MP3 ******/
+/* Because there's could be only 1 MP3 a time data's are stored in a global var */
+/* mp3 == where to load the mp3 file */
+/* mp3status == 1 mp3 is open / 0 mp3 is closed, finished */
+/* mp3_loop == 1 mp3 have to be looped ; 0 mp3 have not to bee looped */
+
+typedef struct {
+  PACKFILE *f;
+  ALMP3_MP3STREAM *s;
+} MP3FILE;
+
 int mp3status;
+int mp3_loop;
+MP3FILE *mp3;
+
+/*************************************************/
+
+/******************* Necessary for the font loader *********/
+FNTInfo* fontInfo;
+PALETTE* pal[16];
+/******************************************************/
+
+
 // global variables
 DATAFILE *creditflic;
 DATAFILE *fonts_dat;
 FONT *small_font;
 MIDI *music;
-
+SAMPLE *rd1;
+SAMPLE *rd2;
+SAMPLE *rd3;
+SAMPLE *fight;
+SAMPLE *hit_alwa;
+SAMPLE *hit_good;
+SAMPLE *wp_alwa;
+SAMPLE *wk_alwa;
+SAMPLE *sp_alwa;
+SAMPLE *sk_alwa;
+SAMPLE *hit1;
+SAMPLE *hit2;
+SAMPLE *block_snd;
+SAMPLE *hadoken1;
+SAMPLE *hadoken2;
+SAMPLE *copter1;
+SAMPLE *copter2;
+SAMPLE *dragon1;
+SAMPLE *dragon2;
+SAMPLE *hadokenx1;
+SAMPLE *hadokenx2;
+SAMPLE *copterx1;
+SAMPLE *copterx2;
+SAMPLE *dragonx1;
+SAMPLE *dragonx2;
+SAMPLE *done;
+SAMPLE *bing;
+SAMPLE *buzz;
+SAMPLE *prfct_snd;
+SAMPLE *ko_snd;
+SAMPLE *to_snd;
+SAMPLE *argh_snd;
+SAMPLE *female_snd;
 BITMAP *virtscreen;             /* virtual screen                   */
 BITMAP *zoomscreen;
 BITMAP *scanliner;              /* blit screen for scanlines        */
@@ -97,6 +135,100 @@ BITMAP *B_clock[ 11 ];
 BITMAP *B_prfct;
 #endif 
 /******************************************/
+struct PLAYER_BMP_STRUCT
+{
+	BITMAP *Static[ 999 ];
+	BITMAP *Walk[ 999 ];
+	BITMAP *Single[ 999 ];
+	BITMAP *Punch[ 999 ];
+	BITMAP *WPunch[ 999 ];
+	BITMAP *Kick[ 999 ];
+	BITMAP *WKick[ 999 ];
+	BITMAP *Jump[ 999 ];
+	BITMAP *KO[ 999 ];
+	BITMAP *Hurt[ 999 ];
+	BITMAP *GHurt[ 999 ];
+	BITMAP *AKick[ 999 ];
+	BITMAP *APunch[ 999 ];
+	BITMAP *GKick[ 999 ];
+	BITMAP *GPunch[ 999 ];
+	BITMAP *FireB[ 999 ];
+	BITMAP *FBall[ 999 ];
+	BITMAP *Rush[ 999 ];
+	BITMAP *SMove[ 999 ];
+	BITMAP *FireBX[ 999 ];
+	BITMAP *FBallX[ 999 ];
+	BITMAP *RushX[ 999 ];
+	BITMAP *SMoveX[ 999 ];
+	BITMAP *NMoves[ 999 ][ 999 ];
+};
+struct MOVE
+{
+	int w;
+	char nbf, spd;
+	int defx , defy;
+};
+struct AMOVE
+{
+	int w;
+	char nbf, spd;
+	int defx , defy;
+	char hit, dmg;
+	int offx , offy;
+};
+struct SMOVE
+{
+	int w;
+	char nbf, spd;
+	int defx , defy;
+	char hit, dmg;
+	int offx , offy;
+	char flg, rot, pix, end, succ, spec, sflg;
+	char exec[255] ;
+	char seq[ 40 ];
+	char nb;
+};
+struct PLAYER_DATA_STRUCT
+{
+	char flag;
+	int height, width;
+	int limoffx , limoffy;
+	int limdefx , limdefy;
+	int wimpact_ct;
+	int simpact_ct;
+	int bimpact_ct;
+	struct MOVE statik;
+	struct MOVE walk;
+	struct MOVE crouch;
+	struct MOVE hurt;
+	struct MOVE ghurt;
+	struct MOVE jump;
+	struct MOVE intro;
+	struct MOVE outwin;
+	struct MOVE ko;
+	struct AMOVE wpunch;
+	struct AMOVE spunch;
+	struct AMOVE apunch;
+	struct AMOVE gpunch;
+	struct AMOVE wkick;
+	struct AMOVE skick;
+	struct AMOVE gkick;
+	struct AMOVE akick;
+	struct SMOVE fireb;
+	struct SMOVE fball;
+	struct SMOVE rush;
+	struct SMOVE smove;
+	struct SMOVE firebx;
+	struct SMOVE fballx;
+	struct SMOVE rushx;
+	struct SMOVE smovex;
+};
+
+struct PLAYER_BMP_STRUCT Player1;
+struct PLAYER_BMP_STRUCT Player2;
+struct PLAYER_DATA_STRUCT p1;
+struct PLAYER_DATA_STRUCT p2;
+
 char animated;
 char foreground;
 char bkgd_counter;
@@ -110,9 +242,9 @@ char gmode , diff;
 char story;
 int sel1, sel2;
 // string and key variables
-//char charname [ 1000 ][ 30 ];
-//char bkgdname [ 1000 ][ 30 ];
-//char flcname  [ 1000 ][ 30 ];
+char charname [ 1000 ][ 30 ];
+char bkgdname [ 1000 ][ 30 ];
+char flcname  [ 1000 ][ 30 ];
 int nbchar;
 int nbbkgd;
 int nbflc;
@@ -129,7 +261,9 @@ char passeur[ 100 ];
 char sectn[ 50 ];
 char temp_strg[ 2 ];
 char last_char;
-
+char get_kstatus ( char strg[] );
+char check_kstatus1 ( char ctrl_key );
+char check_kstatus2 ( char ctrl_key );
 char last_status1;
 char last_status2;
 int fball_h1 , fball_h2;
@@ -155,15 +289,20 @@ char hard_def , hard_off;
 int ai_walkf , ai_walkb;
 int ai_static;
 
-// misc
-int mp3;
+int mp3_on;
 int intro_delay;
-int midi_vol;
+int pan = 128;
+int pitch = 1000;
+int snd_vol , midi_vol;
 int start_x , start_y;
-char gfmode;
+//char gfmode;
+int gfmode;
 int screen_height;
 int screen_width;
+int screen_depth;
+int stretch;
 char autorise;
+void Intro( void );
 /* Display: clock, Life bars, Power bars*/
 int life1 , life2;
 int spower1 , spower2;
@@ -176,12 +315,13 @@ int t_clock;
 int clone = 0;
 char inverted = 0;
 char log_mess[ 80 ];
+
 char c;
 int cx, cy;                         // Current X and Y position in the bkgd + misc
 int x, y;                           // Used in for loops  + misc
 int fx, fy;
 int ok = 1;                         // Loop until ok==0
-int s = 2;                          // Scroll speed 2 pixels per frame
+int s = 2;                          // Scroll speed (2 pixels per frame)
 int misc;
 //long t1, t2,
 long n;				// For calculating FPS
@@ -210,7 +350,7 @@ int alt_color , tcolor , bcolor;
 int sel_bkgd;
 int text_color;
 int deb;
-char fight_round;
+// char round;
 int actual = 0;			// actual sprite status
 int actual2 = 0;
 char ak , ak2 = 0;          // flag air-kick
@@ -254,31 +394,15 @@ char open3[ 40 ];
 char open4[ 40 ];
 char open5[ 40 ];
 char title[ 20 ];
-extern char say1[500] ;
-extern char say2[500] ;
-
 // END OF GLOBAL DEFINITIONS
 
 // declarações de variaveis para o KOF2003
 BITMAP *tface1;				//p1 face pequena ao lado da barra
 BITMAP *tface2;				//p2 face pequena ao lado da barra
 
-BITMAP *tface_border1;                  // 
-BITMAP *tface_border2;
-
-
 char file2[200];			//var para carregar pcx's
-//char buffer[200];			//var tb para carregar pcx's
+char buffer[200];			//var tb para carregar pcx's
 
 int opt;				//int para realizar comparações
-int lineprint;
 
-void man( void );
-char get_kstatus ( char strg[] );
-char check_kstatus1 ( char ctrl_key );
-char check_kstatus2 ( char ctrl_key );
-void Intro( void );
-
-#endif
-
-// EOF
+#endif //MAIN_H
