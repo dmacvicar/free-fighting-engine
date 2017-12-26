@@ -43,9 +43,11 @@ int init_story(story_struct * a_story, Player_variables * player_array, int time
 }//init_story
 
 int continue_story(story_struct * a_story, Player_variables * player_array, int time){
+#if 0
   if (mp3status)
     poll_mp3_file(mp3);
-  
+#endif
+
   switch (a_story->Story_type){
   case 1:
     if (next_fli_frame(0)==FLI_OK){

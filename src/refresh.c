@@ -47,7 +47,8 @@ void blit_KOF91( void )
     //clear_bitmap(buff_screen);
     //aa_stretch_blit (virtscreen, buff_screen, 0, 0, 320, 240, 0, 0, 640, 480); 
     acquire_screen();
-    aa_stretch_blit (virtscreen, screen, 0, 0, 320, 240, 0, 0, SCREEN_W, SCREEN_H); 
+    //aa_stretch_blit (virtscreen, screen, 0, 0, 320, 240, 0, 0, SCREEN_W, SCREEN_H);
+    stretch_blit (virtscreen, screen, 0, 0, 320, 240, 0, 0, SCREEN_W, SCREEN_H); 
     release_screen();
     break;
   case 3: //Scanlines

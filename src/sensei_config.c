@@ -1821,12 +1821,14 @@ int play_music(music_struct * a_music){
       play_midi(music,a_music->loop);
       break;
     case 2:
+#if 0
       if ((poll_mp3_file(mp3)== ALMP3_POLL_NOTPLAYING)&&(a_music->loop==1)){
 	// ugly but working
 	MP3_Close();
 	MP3_Open(a_music->path);
 	MP3_Play();
       }
+#endif
       break;
     default:
       break;

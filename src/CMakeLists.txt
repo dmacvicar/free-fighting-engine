@@ -45,5 +45,6 @@ set(koflinux_SRCS
 )
 
 add_executable(koflinux ${koflinux_SRCS})
+add_definitions(-DALLEGRO_LINUX -DALLEGRO_USE_AA)
 target_link_libraries(koflinux ${ALLEGRO_LIBRARY})
 
